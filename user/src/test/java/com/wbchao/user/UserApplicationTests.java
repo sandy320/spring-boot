@@ -96,7 +96,10 @@ public class UserApplicationTests {
         map.put("username", "wbchao");
         map.put("email", "s01@sohu.com");
 
-        rabbitTemplate.convertAndSend("exchange.direct", "user.register", map);
+        String exchangeName = "amqpAdmin.direct.exchange";
+        String routeKey = "user.register";
+
+        rabbitTemplate.convertAndSend(exchangeName, routeKey, map);
     }
 
     @Test
