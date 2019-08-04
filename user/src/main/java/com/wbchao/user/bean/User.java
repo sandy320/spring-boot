@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Document(indexName = "wbchao", type = "user")
 public class User implements Serializable {
-
     @Id
     private String id;
     private String username;
