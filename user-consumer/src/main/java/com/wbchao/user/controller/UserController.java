@@ -17,7 +17,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api("User-Service API")
 public class UserController {
 
     private static final String EUREKA_SERVICE_HTTP_URL = "http://User-SERVICE/user";
@@ -38,7 +41,7 @@ public class UserController {
      */
     @PostMapping(path = "/user")
     public void addUser(@RequestBody User user) {
-        restTemplate.postForObject(EUREKA_SERVICE_HTTP_URL, user, null);
+        restTemplate.postForLocation(EUREKA_SERVICE_HTTP_URL, user);
     }
 
     /**
@@ -68,7 +71,7 @@ public class UserController {
      */
     @PutMapping(path = "/user/{id}")
     public void updateUser(@RequestBody User user) {
-        restTemplate.put(EUREKA_SERVICE_HTTP_URL + "/active/" + user.getId(), user);
+        restTemplate.put(EUREKA_SERVICE_HTTP_URL + "/" + user.getId(), user);
 
     }
 

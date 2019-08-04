@@ -25,6 +25,13 @@ public class RabbitMqApplicationRunner implements ApplicationRunner {
     @Autowired
     RabbitMqConfig rabbitMqConfig;
 
+    /**
+     * Create the exchange and queue on Rabbit MQ
+     * If already exist, will be no influence
+     *
+     * @param applicationArguments
+     * @throws Exception
+     */
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         logger.info("Create exchange, queue on Rabbit MQ...");
