@@ -42,7 +42,7 @@ public class UserController {
      *
      * @param user
      */
-    @ApiOperation(value="RegisterUser", notes="Register a new user with username, age and email")
+    @ApiOperation(value = "RegisterUser", notes = "Register a new user with username, age and email")
     @ApiImplicitParam(name = "user", value = "User entity include username, age and email", dataType = "User")
     @PostMapping(path = "/user")
     public void addUser(@RequestBody User user) {
@@ -54,7 +54,7 @@ public class UserController {
      *
      * @param id
      */
-    @ApiOperation(value="DeleteUser", notes="Delete a the user with id")
+    @ApiOperation(value = "DeleteUser", notes = "Delete a the user with id")
     @ApiImplicitParam(name = "id", value = "The user id", dataType = "String", required = true, paramType = "path")
     @DeleteMapping(path = "/user/{id}")
     public void deleteUser(@PathVariable String id) {
@@ -66,7 +66,7 @@ public class UserController {
      *
      * @param id
      */
-    @ApiOperation(value="ActiveUser", notes="Active the deleted user with id")
+    @ApiOperation(value = "ActiveUser", notes = "Active the deleted user with id")
     @ApiImplicitParam(name = "id", value = "The user id", dataType = "String", required = true, paramType = "path")
     @PutMapping(path = "/user/active/{id}")
     public void activeUser(@PathVariable String id) {
@@ -78,11 +78,10 @@ public class UserController {
      *
      * @param user
      */
-    @ApiOperation(value="UpdateUser", notes="Update the user with id")
-    @ApiImplicitParams({
-                               @ApiImplicitParam(name = "id", value = "User id", required = true, dataType = "String",paramType = "path"),
-                               @ApiImplicitParam(name = "user", value = "User entity", required = true, dataType = "User")
-                       })
+    @ApiOperation(value = "UpdateUser", notes = "Update the user with id")
+    @ApiImplicitParams(
+            {@ApiImplicitParam(name = "id", value = "User id", required = true, dataType = "String", paramType = "path"), @ApiImplicitParam(
+                    name = "user", value = "User entity", required = true, dataType = "User")})
     @PutMapping(path = "/user/{id}")
     public void updateUser(@RequestBody User user) {
         restTemplate.put(EUREKA_SERVICE_HTTP_URL + "/" + user.getId(), user);
@@ -94,7 +93,7 @@ public class UserController {
      *
      * @param id
      */
-    @ApiOperation(value="FindUser", notes="Find the single user with id")
+    @ApiOperation(value = "FindUser", notes = "Find the single user with id")
     @ApiImplicitParam(name = "id", value = "User id", required = true, dataType = "String", paramType = "path")
     @GetMapping(path = "/user/{id}")
     public User findUserById(@PathVariable String id) {
@@ -104,7 +103,7 @@ public class UserController {
     /**
      * Find all users
      */
-    @ApiOperation(value="FindAllUser", notes="Find all users")
+    @ApiOperation(value = "FindAllUser", notes = "Find all users")
     @GetMapping(path = "/user")
     public List<User> findAllUsers() {
         return restTemplate.getForObject(EUREKA_SERVICE_HTTP_URL, List.class);
@@ -113,7 +112,7 @@ public class UserController {
     /**
      * Find all active users
      */
-    @ApiOperation(value="FindActiveUser", notes="Find the active users")
+    @ApiOperation(value = "FindActiveUser", notes = "Find the active users")
     @GetMapping(path = "/user/active")
     public List<User> findActiveUsers() {
         return restTemplate.getForObject(EUREKA_SERVICE_HTTP_URL + "/active", List.class);
@@ -125,10 +124,10 @@ public class UserController {
      * @param name
      * @return
      */
-    @ApiOperation(value="SearchUser", notes="Search the users with username keyword")
+    @ApiOperation(value = "SearchUser", notes = "Search the users with username keyword")
     @ApiImplicitParam(name = "keyword", value = "Username key word", required = true, dataType = "String", paramType = "param")
     @GetMapping(path = "/user/search")
     public List<User> findUsersByName(@RequestParam String name) {
-        return restTemplate.getForObject(EUREKA_SERVICE_HTTP_URL + "/search", List.class);
+        return restTemplate.getForObject(EUREKA_SERVICE_HTTP_URL + "/search?name=" + name, List.class);
     }
 }
