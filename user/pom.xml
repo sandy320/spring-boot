@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
         <spring-cloud.version>Edgware.SR6</spring-cloud.version>
     </properties>
 
