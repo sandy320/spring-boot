@@ -1,0 +1,106 @@
+version: '3'
+
+services:
+  elastic_search:
+    image: elasticsearch:2.4.6
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      backend:
+        aliases:
+          - es_host
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      backend:
+        aliases:
+          - rabbit_host
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      backend:
+        aliases:
+          - redis_host
+  eureka_service:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/discover-service-eureka:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    ports:
+      - "8761:8761"
+    depends_on:
+      - redis
+      - rabbitmq
+      - elastic_search
+    networks:
+      backend:
+        aliases:
+          - eureka_host
+  user_service1:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      '--server.port=8001',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8001:8001"
+    depends_on:
+      - eureka_service
+    networks:
+      backend:
+        aliases:
+          - user1_host
+  user_service2:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      '--server.port=8002',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8002:8002"
+    depends_on:
+      - eureka_service
+    networks:
+      backend:
+        aliases:
+          - user2_host
+  user_service3:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      '--server.port=8003',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8003:8003"
+    depends_on:
+      - eureka_service
+    networks:
+      backend:
+        aliases:
+          - user3_host
+  user_consumer:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-consumer:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka_service
+    networks:
+      backend:
+        aliases:
+          - consumer_host
+  user_noitification:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-notification:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    depends_on:
+      - user_service1
+    networks:
+      backend:
+        aliases:
+          - notification_host
+networks:
+  backend:
