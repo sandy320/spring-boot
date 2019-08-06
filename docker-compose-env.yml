@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  elastic_search:
+    image: elasticsearch:2.4.6
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      backend:
+        aliases:
+          - es_host
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      backend:
+        aliases:
+          - rabbit_host
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      backend:
+        aliases:
+          - redis_host
+networks:
+  backend:

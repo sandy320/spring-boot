@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  eureka_service:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/discover-service-eureka:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    ports:
+      - "8761:8761"
+    networks:
+      backend:
+        aliases:
+          - eureka_host
+networks:
+  backend:

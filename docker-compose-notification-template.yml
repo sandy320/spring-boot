@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  user_noitification:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-notification:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    ports:
+      - "8090:8090"
+    networks:
+      backend:
+        aliases:
+          - notification_host
+networks:
+  backend:

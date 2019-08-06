@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  user_service1:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      #'--eureka.client.eureka-server-read-timeout-seconds=30',
+      '--server.port=8001',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8001:8001"
+    networks:
+      backend:
+        aliases:
+          - user1_host
+  user_service2:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      '--server.port=8002',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8002:8002"
+    networks:
+      backend:
+        aliases:
+          - user2_host
+  user_service3:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+    command: [
+      '--server.port=8003',
+      '--host.ip=127.0.0.1'
+    ]
+    ports:
+      - "8003:8003"
+    networks:
+      backend:
+        aliases:
+          - user3_host
+  user_consumer:
+    image: registry.cn-beijing.aliyuncs.com/wbchao/user-consumer:0.0.1
+    command: ['--host.ip=127.0.0.1']
+    ports:
+      - "8080:8080"
+    networks:
+      backend:
+        aliases:
+          - consumer_host
+networks:
+  backend:

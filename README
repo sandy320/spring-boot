@@ -1,0 +1,52 @@
+README
+
+1. Introduction
+    This service provide the CRUD function of user.
+    A notification email will send after new user register successfully.
+2. Modules
+    2.1 Framework
+            Spring Boot 1.5.12
+    2.2 DB
+            Elastic Search 2.4.6
+    2.3 Cache
+            Redis
+    2.4 AMQP
+            Rabbit MQ 3-management
+    2.5 eureka-server
+            Provide the load balance for user-service
+    2.6 user
+            The CRUD service logic
+    2.7 user-consumer
+            Consume the user service with eureka server
+    2.8 user-notification
+            Listen the RabbitMQ message, send register email
+3. Docker images
+    3.1 Official images
+        elasticsearch:2.4.6
+        rabbitmq:3-management
+        redis:Latest
+    3.2 Product image(Pushed to Aliyun)
+            registry.cn-beijing.aliyuncs.com/wbchao/discover-service-eureka:0.0.1
+            registry.cn-beijing.aliyuncs.com/wbchao/user-service:0.0.1
+            registry.cn-beijing.aliyuncs.com/wbchao/user-consumer:0.0.1
+            registry.cn-beijing.aliyuncs.com/wbchao/user-notification:0.0.1
+4. How to run service
+    4.1 Environment
+            docker and docker-compose should be installed
+    4.2 Run
+        Put the below files in the same folder
+            docker-compose-env.yml
+            docker-compose-eureka-template.yml
+            docker-compose-service-template.yml
+            docker-compose-notification-template.yml
+            runService.sh
+            wait-for-it.sh
+        Execute ./runService.sh
+        (It will take several minutes to finish deploy depends on the network speed)
+5. Rest API doc
+    After service up, the Rest API doc could be visited at
+    http://[host_ip:8080]/swagger-ui.html
+6. Note
+    5.1 The shell script deploy all the service in one node.
+        For multi node deployment, need to modifiy the start script.
+    5.2 wait-for-it.sh is a 3rd script from https://github.com/vishnubob/wait-for-it
