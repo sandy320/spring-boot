@@ -34,13 +34,7 @@ README
     4.1 Environment
             docker and docker-compose should be installed
     4.2 Run
-        Put the below files in the same folder
-            docker-compose-env.yml
-            docker-compose-eureka-template.yml
-            docker-compose-service-template.yml
-            docker-compose-notification-template.yml
-            runService.sh
-            wait-for-it.sh
+        Download the script folder
         Execute ./runService.sh
         (It will take several minutes to finish deploy depends on the network speed)
 5. Rest API doc
