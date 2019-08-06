@@ -41,6 +41,6 @@ README
     After service up, the Rest API doc could be visited at
     http://[host_ip:8080]/swagger-ui.html
 6. Note
-    5.1 The shell script deploy all the service in one node.
+    6.1 The shell script deploy all the service in one node.
         For multi node deployment, need to modifiy the start script.
-    5.2 wait-for-it.sh is a 3rd script from https://github.com/vishnubob/wait-for-it
+    6.2 wait-for-it.sh is a 3rd script from https://github.com/vishnubob/wait-for-it
