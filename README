@@ -13,7 +13,7 @@ README
     2.4 AMQP
             Rabbit MQ 3-management
     2.5 eureka-server
-            Provide the load balance for user-service
+            Provide the discovery service and load balance for user-service
     2.6 user
             The CRUD service logic
     2.7 user-consumer
